@@ -261,10 +261,16 @@ public class CanvasMap{
 	 * get the height of the map, {@link Canvas#getHeight()}
 	 * @return height of canvas
 	 */
+        public double h(){
+            return board.getHeight();
+        }
 
 	/**
 	 * create a method called w.
 	 * get the width of the map, {@link Canvas#getWidth()}
 	 * @return width of canvas
 	 */
+        public double w(){
+            return board.getWidth();
+        }
 }

@@ -212,21 +212,21 @@ public class RayCast extends Application{
                 board.rayCountProperty().bind(rayCount.valueProperty());
 
 		//create a MenuButton with argument "Options", null and all of created CheckMenuItem.
-                MenuButton options = new MenuButton("Options", null);
+                MenuButton options = new MenuButton("Options", null,
 		//call createCheckBox 5 times and use following names:
 		//FPS, Intersects. Lights, Joints, Bounds, Sectors
 		//only FPS is selected the rest are false.
 		//as last argument get the equivalent property from CanvasMap
-                createCheckMenuItem("FPS", true, board.drawFPSProperty());
-                createCheckMenuItem("Intersects", false, board.drawIntersectPointProperty());
-                createCheckMenuItem("Lights", false, board.drawLightSourceProperty());
-                createCheckMenuItem("Joints", false, board.drawShapeJointsProperty());
-                createCheckMenuItem("Bounds", false, board.drawBoundsProperty());
-                createCheckMenuItem("Sectors", false, board.drawSectorsProperty());
+                createCheckMenuItem("FPS", true, board.drawFPSProperty()),
+                createCheckMenuItem("Intersects", false, board.drawIntersectPointProperty()),
+                createCheckMenuItem("Lights", false, board.drawLightSourceProperty()),
+                createCheckMenuItem("Joints", false, board.drawShapeJointsProperty()),
+                createCheckMenuItem("Bounds", false, board.drawBoundsProperty()),
+                createCheckMenuItem("Sectors", false, board.drawSectorsProperty()));
                 
 
 		//Initialize animatorsBox with the animators list
-                animatorsBox =  new ChoiceBox<AbstractAnimator>();
+                animatorsBox =  new ChoiceBox<AbstractAnimator>(animators);
 		//call getSelectionModel on animatorsBox then call selectedItemProperty and then call addListener.
 
                 animatorsBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> board.setAnimator(newValue));
@@ -260,19 +260,13 @@ public class RayCast extends Application{
 		// it that will update the text in one of the labels with the new coordinate of the mouse.
 		// the lambda will take one argument of type MouseEvent and two methods
 		// getX and getY from MouseEvnet can be used to get position of the mouse
-                board.addEventHandler(MouseEvent.MOUSE_MOVED, (event) -> {
-                    event.getX();
-                    event.getY();
-                });
+                board.addEventHandler(MouseEvent.MOUSE_MOVED, (event) -> mouseCoordLabel.setText("("+event.getX()+","+event.getY()+")"));
 
 		// call addEventHandler on canvas for MouseEvent.MOUSE_DRAGGED event and pass a lambda to
 		// it that will update the text in one of the labels with the new coordinate of the mouse.
 		// the lambda will take one argument of type MouseEvent and two methods
 		// getX and getY from MouseEvnet can be used to get position of the mouse
-                board.addEventHandler(MouseEvent.MOUSE_DRAGGED, (event) -> {
-                    event.getX();
-                    event.getY();
-                });
+                board.addEventHandler(MouseEvent.MOUSE_DRAGGED, (event) -> dragCoordLabel.setText("("+event.getX()+","+event.getY()+")"));
 
 		// create a new ToolBar and as arguments of its constructor pass the create labels to it.
 		// there should be 4 labels: new Label( "Mouse: "), mouseCoordLabel, new Label( "Drag: "), dragCoordLabel
@@ -313,7 +307,8 @@ public class RayCast extends Application{
 		// create a new CheckMenuItem object with given text.
                 CheckMenuItem check = new CheckMenuItem(text);
 		// call bind on binding and pass to it check.selectedProperty(),
-                check.selectedProperty().bind(binding);
+//                check.selectedProperty().bind(binding);
+binding.bind(check.selectedProperty());
 		// this will notify the binding object every time check.selectedProperty() is changed.
 		// call setSelected and pass to it isSelected.
                 check.setSelected(isSelected);

@@ -58,7 +58,7 @@ public abstract class AbstractAnimator extends AnimationTimer{
 	 * @param now - current time in nanoseconds, represents the time that this function is called.
 	 */
         public void handle(long now){
-//            handle(now, CanvasMap.gc());
+            handle(now, map.gc());
         }
 	/**
 	 * create a protected abstract method called handle, this method to be overridden by subclasses.
